@@ -1,0 +1,34 @@
+import re
+
+
+def get_text(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        text = f.read()
+    return text
+
+
+def top_pattern(text, pattern_object, top_number):
+    # создаем из текста список из строк, подходящих под переданный функции объект шаблона
+    strings = re.findall(pattern_object, text)
+    # находим частоту вхождений каждой строки
+    strings_dict = {}
+    for string in strings:
+        strings_dict.setdefault(string, 0)
+        strings_dict[string] += 1
+    # создаем список кортежей
+    words_list = [(w, strings_dict.get(w)) for w in strings_dict]
+    # сортируем по убыванию и оставляем переданное функции количество элементов из этого списка
+    top_strings = sorted(words_list, key=lambda words_list: words_list[1], reverse=True)[:top_number]
+    return top_strings
+
+
+if __name__ == '__main__':
+
+    my_text = get_text('test.txt')
+
+    print('\n10 самых часто использующих:')
+
+    my_pattern = re.compile('(\w+), \[\d')
+
+    top10_words = top_pattern(my_text, my_pattern, 20)
+    print(top10_words)
