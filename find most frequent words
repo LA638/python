@@ -25,10 +25,11 @@ def top_pattern(text, pattern_object, top_number):
 if __name__ == '__main__':
 
     my_text = get_text('test.txt')
+    n = 5
 
-    print('\n10 самых часто использующих:')
+    print(n, 'самых часто использующих:')
 
     my_pattern = re.compile('(\w+), \[\d')
 
-    top10_words = top_pattern(my_text, my_pattern, 20)
-    print(top10_words)
+    top_words = top_pattern(my_text, my_pattern, n)
+    [print(word) for word in top_words]
