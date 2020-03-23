@@ -1,0 +1,29 @@
+import sys
+
+# Напишите функцию, которая рекуррентно (не рекурсивно!)
+# вычисляет значение Rn по формуле ниже на картинке.
+# Начальные значения:
+# R0(x) = 1, R1(x) = x, R2(x) = 2x
+# Функция принимает два аргумента (n, x), и возвращает число.
+# Функция должна уметь вычислять значения R вплоть до n = 100.
+#
+# Ввод:
+# 3; 14.58
+# Вывод:
+# 137.6076
+
+def R(n, x):
+    R_list = [1, x, x*2]
+    for i in range(n+1):
+        if i > 2:
+            # R_list.append(R(i-1, x) * x * (n - 2) / n - R(i-2, x) / n + R(i-3, x) * 3 / (n + 1))
+            R_list.append(R_list[i-1] * x * (n - 2) / n - R_list[i-2] / n + R_list[i-3] * 3 / (n + 1))
+        # print(i, R_list[i], R_list)        
+    return R_list[i]
+
+if __name__ == "__main__":
+    if len(sys.argv) > 2:
+        print(R(int(sys.argv[1]), float(sys.argv[2])))
+        exit()
+    print(R(3, 14.58))
+    # print(R(5, 14.58))
